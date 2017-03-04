@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Toggle Saraiva Lev serial number (SA615) by Bookeen Cybook Muse (BK646)
+
+FIRST=$(nvram -s | cut -d '=' -f2 | cut -c 1-5)
+LAST=$(nvram -s | cut -d '=' -f2 | cut -c 6-18)
+
+if [ "$FIRST" == "SA615" ]; then
+	nvram -S BK646$LAST
+elif [ "$FIRST" == "BK646" ]; then
+	nvram -S SA615$LAST
+fi
+
+killall boordr
